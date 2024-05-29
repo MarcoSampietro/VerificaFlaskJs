@@ -3,11 +3,15 @@ import pandas as pd
 
 app = Flask(__name__)
 
-dati_clienti = pd.read_csv('/workspace/VerificaFlaskbase/data/dati_clienti.csv')
+dati_clienti = pd.read_csv('/workspace/VerificaFlaskJs/data/dati_clienti.csv')
 
 @app.route('/')
 def homepage():
     return render_template('index.html')
+
+@app.route('/elenconazioni')
+def elenco():
+    return jsonify(dati_clienti['Country'])
 
 @app.route('/elencocitta/<nazione>', methods=['GET'])
 def citta(nazione):
