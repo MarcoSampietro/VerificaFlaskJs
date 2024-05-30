@@ -1,29 +1,36 @@
-function get_elenco(){
+function get_nazioni() {
     fetch('/elenconazioni')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        let elenco='';
-        for (let nazione of data) {
-            console.log(nazione);
-            elenco += '<a href=/elencocitta/' +nazione+ '>' + nazione+ '</a><br />' ;
-        }
-        document.getElementById('nazioni').innerHTML = elenco;
-    })
+        .then(response => response.json())
+        .then(data => {
+            let elenco = '';
+            for (let nazione of data) {
+                elenco += '<a href="#" onclick="elenco_citta(\'' + nazione + '\')">' + nazione + '</a><br />';
+            }
+            document.getElementById('nazioni').innerHTML = elenco;
+        });
 }
 
-function get_citta(country){
-    fetch(`/elencocitta/${country}`)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        let elenco='';
-        let cont=0
-        for (let citta of data) {
-            console.log(citta);
-            elenco += '<p><input type="radio" name="citta" value="'+ citta +'" />'+ citta, cont +'</p>';
-            cont += 1
-        }
-        document.getElementById('citta').innerHTML = elenco;
-    })
+function elenco_citta(nazione) {
+    fetch(`/elencoCitta/${nazione}`)
+        .then(response => response.json())
+        .then(data => {
+            let elenco = '';
+            for (let citta of data) {
+                elenco += '<p><input type="radio" name="citta" value="' + citta['City'] + '" onclick="elenco_clienti(\'' + citta['City'] + '\')" />' + citta['City'] + ' (' + citta['Customers'] + ' clienti)</p>';
+            }
+            document.getElementById('citta').innerHTML = elenco;
+        });
+}
+
+function elenco_clienti(citta) {
+    fetch(`/elencoClienti?citta=${citta}`)
+        .then(response => response.json())
+        .then(data => {
+            let elenco = '<ul>';
+            for (let cliente of data) {
+                elenco += '<li>' + JSON.stringify(cliente) + '</li>';
+            }
+            elenco += '</ul>';
+            document.getElementById('clienti').innerHTML = elenco;
+        });
 }

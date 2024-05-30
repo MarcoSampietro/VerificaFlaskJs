@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Homepage</title>
-        <script type=text/javascript src="{{url_for('static', filename='js/script.js') }}"></script>
-    </head>
-    <body>
-        <h1>Homepage</h1>
-        <div id="nazioni"></div>
-        <div id="citta"></div>
-        <div id="clienti"></div>
-        <button onclick="get_elenco()">nazioni</button>
-    </body>
+<head>
+    <title>Homepage</title>
+    <script type="text/javascript" src="{{url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <h1>Homepage</h1>
+    <button onclick="get_nazioni()">Nazioni</button>
+    <div id="nazioni"></div>
+    <div id="citta"></div>
+    <div id="clienti"></div>
+</body>
 </html>
