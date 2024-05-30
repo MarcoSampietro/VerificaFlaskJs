@@ -1,4 +1,4 @@
-function get_nazioni() {
+function get_elenco() {
     fetch('/elenconazioni')
         .then(response => response.json())
         .then(data => {
@@ -7,6 +7,7 @@ function get_nazioni() {
                 elenco += '<a href="#" onclick="elenco_citta(\'' + nazione + '\')">' + nazione + '</a><br />';
             }
             document.getElementById('nazioni').innerHTML = elenco;
+            document.getElementById('buttonNazioni').style.display = 'none';
         });
 }
 
