@@ -11,11 +11,15 @@ def homepage():
 
 @app.route('/elenconazioni')
 def elenco():
-    return jsonify(dati_clienti['Country'])
+    naz=dati_clienti['Country']
+    return jsonify(naz.to_list())
 
 @app.route('/elencocitta/<nazione>', methods=['GET'])
 def citta(nazione):
-    return jsonify(get_elenco)
+    info = dati_clienti[dati_clienti['Country'] == nazione]
+    city_counts = info.groupby('City').count().reset_index(names=['Customers']).sort_values(by='Customers', ascending=False).to_dict('records')
+    print(city_counts)
+    return jsonify(city_counts)
 
 @app.route('/elencoclienti', methods=['GET'])
 def clienti():
