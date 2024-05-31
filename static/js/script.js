@@ -8,6 +8,7 @@ function get_elenco() {
             }
             document.getElementById('nazioni').innerHTML = elenco;
             document.getElementById('buttonNazioni').style.display = 'none';
+            document.getElementById('buttonElimina').style.display = 'none';
         });
 }
 
@@ -33,5 +34,19 @@ function elenco_clienti(citta) {
             }
             elenco += '</ul>';
             document.getElementById('clienti').innerHTML = elenco;
+        });
+}
+
+function elimina() {
+    fetch('/elimina_cliente')
+        .then(response => response.json())
+        .then(data => {
+            let form;
+            for (let nazione of data) {
+                elenco += '<a href="#" onclick="elenco_citta(\'' + nazione + '\')">' + nazione + '</a><br />';
+            }
+            document.getElementById('elimina').innerHTML = form;
+            document.getElementById('buttonNazioni').style.display = 'none';
+            document.getElementById('buttonElimina').style.display = 'none';
         });
 }

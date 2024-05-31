@@ -26,5 +26,12 @@ def clienti():
     info = dati_clienti[dati_clienti['City'] == citta].to_dict('records')
     return jsonify(info)
 
+@app.route('/elimina_cliente', methods=['GET', 'POST'])
+def elimina_cliente():
+    id = request.args.get('id')
+    dati_clienti.drop(dati_clienti['CustomerID'] = id, inplace = True)
+
+    return jsonify()
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=32457, debug=True)
